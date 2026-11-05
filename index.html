@@ -3,41 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tileborn - BicmenGames</title>
-    <meta name="description" content="Tileborn: 2048 tarzı taş birleştirme ile kule savunmasını buluşturan, çevrimdışı oynanabilen Android oyunu." />
+    <title>Tileborn - Android oyunu | BicmenGames</title>
+    <meta name="description" content="Tileborn: 2048 tarzı taş birleştirmeyi kule savunmasıyla buluşturan, çevrimdışı oynanabilen ücretsiz Android oyunu. Google Play'den indir." />
+    <meta name="theme-color" content="#3f7d6b" />
     <link rel="icon" href="icon-512.png" />
+    <link rel="canonical" href="https://tileborngame.github.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tileborn" />
+    <meta property="og:title" content="Tileborn - Birleştir, Kır, Savun" />
+    <meta property="og:description" content="2048 tarzı taş birleştirme + kule savunması. Çevrimdışı, ücretsiz Android oyunu. Google Play'den indir." />
+    <meta property="og:image" content="https://tileborngame.github.io/feature-graphic.png" />
+    <meta property="og:url" content="https://tileborngame.github.io/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tileborn - Birleştir, Kır, Savun" />
+    <meta name="twitter:image" content="https://tileborngame.github.io/feature-graphic.png" />
     <style>
+      * { box-sizing: border-box; }
       body { margin: 0; font-family: system-ui, sans-serif; line-height: 1.6; color: #fff6dc;
              background: linear-gradient(#79b58d, #3f7d6b) fixed; min-height: 100vh; }
-      main { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; text-align: center; }
-      img.icon { width: 128px; height: 128px; border-radius: 24px; border: 3px solid #9a5044; }
+      main { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; text-align: center; }
+      a.iconlink { display: inline-block; }
+      img.icon { width: 128px; height: 128px; border-radius: 24px; border: 3px solid #9a5044; display: block; }
       h1 { margin: 12px 0 0; font-size: 2.4rem; text-shadow: 0 2px 0 #24473b; }
-      .tag { color: #ffd54f; text-shadow: 0 1px 0 #24473b; margin-top: 4px; }
-      .banner { width: 100%; border-radius: 12px; border: 3px solid #9a5044; margin: 24px 0; }
+      .tag { color: #ffd54f; text-shadow: 0 1px 0 #24473b; margin-top: 4px; font-size: 1.1rem; }
+
+      /* Ana indirme düğmesi */
+      .cta-wrap { margin: 22px 0 6px; }
+      .hint { color: #ffd54f; font-weight: 700; text-shadow: 0 1px 0 #24473b; margin: 0 0 8px; letter-spacing: .3px; }
+      .arrow { display: inline-block; animation: bob 1s ease-in-out infinite; }
+      @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+      a.cta { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; color: #fff;
+              background: linear-gradient(#58b368, #2f8a45); border: 3px solid #1f5e30; border-radius: 16px;
+              padding: 12px 26px; box-shadow: 0 5px 0 #1f5e30, 0 10px 18px rgba(0,0,0,.28);
+              transition: transform .15s ease, box-shadow .15s ease; }
+      a.cta:hover, a.cta:focus-visible { transform: translateY(-2px) scale(1.03); box-shadow: 0 7px 0 #1f5e30, 0 14px 22px rgba(0,0,0,.32); }
+      a.cta:active { transform: translateY(3px); box-shadow: 0 2px 0 #1f5e30; }
+      a.cta svg { width: 38px; height: 38px; flex: none; }
+      a.cta .l1 { display: block; font-size: .8rem; opacity: .9; line-height: 1.1; text-align: left; }
+      a.cta .l2 { display: block; font-size: 1.45rem; font-weight: 800; line-height: 1.15; text-align: left; }
+      .meta { font-size: .95rem; opacity: .95; margin-top: 10px; }
+
+      .bannerlink { display: block; margin: 24px 0; }
+      .banner { width: 100%; border-radius: 12px; border: 3px solid #9a5044; display: block; transition: transform .15s ease; }
+      .bannerlink:hover .banner { transform: scale(1.01); }
+
+      .shots { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px; margin: 0 0 20px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+      .shots img { height: 360px; width: auto; border-radius: 12px; border: 3px solid #9a5044; flex: none; scroll-snap-align: center; }
+
       section { background: #6b3f2f; border: 2px solid #9a5044; border-radius: 12px; padding: 4px 20px 20px; margin-bottom: 20px; text-align: left; }
       h2 { color: #ffd54f; text-shadow: 0 1px 0 #24473b; }
       a { color: #ffd54f; }
       footer { margin-top: 28px; font-size: .9rem; opacity: .9; }
+      @media (max-width: 420px) { h1 { font-size: 2rem; } a.cta .l2 { font-size: 1.25rem; } .shots img { height: 300px; } }
+      @media (prefers-reduced-motion: reduce) { .arrow { animation: none; } a.cta { transition: none; } }
     </style>
   </head>
   <body>
     <main>
-      <img class="icon" src="icon-512.png" alt="Tileborn simgesi" />
+      <a class="iconlink play" href="https://play.google.com/store/apps/details?id=com.tileborn.game" aria-label="Tileborn - Google Play'den indir / Get it on Google Play">
+        <img class="icon" src="icon-512.png" alt="Tileborn simgesi" />
+      </a>
       <h1>Tileborn</h1>
       <div class="tag">Birleştir - Kır - Savun</div>
-      <img class="banner" src="feature-graphic.png" alt="Tileborn oyun görseli" />
+
+      <div class="cta-wrap">
+        <p class="hint"><span class="arrow">&#11015;</span> <span id="hint">Tıkla ve ücretsiz indir</span> <span class="arrow">&#11015;</span></p>
+        <a class="cta play" href="https://play.google.com/store/apps/details?id=com.tileborn.game">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#fff" d="M8 4.5v39l21-19.5z" opacity=".95"/><path fill="#ffd54f" d="M29 24 36.5 16.5 12 3z"/><path fill="#ff6e6e" d="M29 24 36.5 31.5 12 45z"/><path fill="#9be7ff" d="M36.5 16.5 43 20.2c1.7 1 1.7 3.6 0 4.6l-6.5 3.7L29 24z"/></svg>
+          <span><span class="l1" id="cta1">ÜCRETSİZ İNDİR</span><span class="l2">Google Play</span></span>
+        </a>
+        <div class="meta" id="meta">Android &middot; Ücretsiz &middot; Çevrimdışı oynanır</div>
+      </div>
+
+      <a class="bannerlink play" href="https://play.google.com/store/apps/details?id=com.tileborn.game" aria-label="Google Play'den indir / Get it on Google Play">
+        <img class="banner" src="feature-graphic.png" alt="Tileborn oyun görseli" />
+      </a>
+
+      <div class="shots" id="shots" aria-label="Oyundan görüntüler / Screenshots"></div>
 
       <section>
         <h2>Oyun hakkında</h2>
         <p>Tileborn, 2048 tarzı taş birleştirmeyi kule savunmasıyla buluşturan bir Android oyunudur. Taşları birleştir, parlayan taşları kırıp kart seç, kahramanını güçlendir ve kaleni dalga dalga gelen canavarlara karşı savun.</p>
         <p>Oyun çevrimdışı oynanır; internet yalnızca isteğe bağlı özellikler (ödüllü reklamlar, sıralama) için gerekir. Oyunda güç satın alınamaz.</p>
-        <p><strong>Google Play:</strong> yakında.</p>
+        <p><a class="play" href="https://play.google.com/store/apps/details?id=com.tileborn.game"><strong>Google Play'den indir</strong></a></p>
       </section>
 
       <section>
         <h2>About the game</h2>
         <p>Tileborn is an Android game that blends 2048-style tile merging with tower defense. Merge tiles, break glowing ones to pick cards, power up your hero and defend your castle against waves of monsters.</p>
         <p>The game works offline; an internet connection is only needed for optional features (rewarded ads, leaderboards). Power cannot be bought.</p>
+        <p><a class="play" href="https://play.google.com/store/apps/details?id=com.tileborn.game"><strong>Get it on Google Play</strong></a></p>
       </section>
 
       <footer>
@@ -46,5 +101,39 @@
         <p>&copy; BicmenGames</p>
       </footer>
     </main>
+
+    <script>
+      (function () {
+        var base = "https://play.google.com/store/apps/details?id=com.tileborn.game";
+        var params = new URLSearchParams(location.search);
+        // Kaynağı ölç: site adresine ?src=instagram (reels, tiktok...) eklenirse Play Console "trafik kaynakları"nda görünür.
+        var src = (params.get("src") || "site").replace(/[^a-z0-9_-]/gi, "").slice(0, 30) || "site";
+        var url = base + "&referrer=" + encodeURIComponent("utm_source=" + src + "&utm_medium=web&utm_campaign=tileborngame_site");
+        document.querySelectorAll("a.play").forEach(function (a) { a.href = url; });
+
+        var en = !/^tr/i.test(navigator.language || "tr");
+        if (params.get("lang") === "en") en = true;
+        if (params.get("lang") === "tr") en = false;
+        if (en) {
+          document.documentElement.lang = "en";
+          document.getElementById("hint").textContent = "Tap to download for free";
+          document.getElementById("cta1").textContent = "FREE ON";
+          document.getElementById("meta").textContent = "Android · Free · Plays offline";
+        }
+        var names = ["02_battle", "03_cards", "04_skills_active", "05_gear", "07_skills"];
+        var box = document.getElementById("shots");
+        names.forEach(function (n) {
+          var a = document.createElement("a");
+          a.className = "play";
+          a.href = url;
+          var img = document.createElement("img");
+          img.src = "img/" + (en ? "en" : "tr") + "_" + n + ".jpg";
+          img.alt = en ? "Tileborn screenshot" : "Tileborn oyun görüntüsü";
+          img.loading = "lazy";
+          a.appendChild(img);
+          box.appendChild(a);
+        });
+      })();
+    </script>
   </body>
 </html>
